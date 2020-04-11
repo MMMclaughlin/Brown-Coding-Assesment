@@ -129,11 +129,13 @@ public class Cell {
                 d_col = this.getColumn() - dir[1];
                 while (true){
                     d_row += dir[0];//moves through the next squares in the given direction
-                    d_col += dir[0];
+                    d_col += dir[1];
                     temp_score += 1;//increase score by amount of enemy squares taken
                     if (0 <= d_col &&  d_col < BOARD_SIZE && 0 <=  d_row
                             && cells[d_row][d_col].getValue() != CellStatus.EMPTY){
+                        System.out.println("in if statement");
                         if (cells[d_row][d_col].getValue() == colour) {
+                            System.out.println("in second if");
                             isLegal = true;
                             score += temp_score;
                             moves.add(new DirectedMove(cells[d_row][d_col], dir));
