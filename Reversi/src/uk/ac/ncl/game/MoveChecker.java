@@ -56,9 +56,17 @@ public class MoveChecker {
             int[] dir = move.getDirection();
             int d_row = cell.getRow();
             int d_col = cell.getColumn();
+            d_row += dir[0];
+            d_col += dir[1];
+            while (d_col != move.getCell().getColumn() || d_row != move.getCell().getRow()) {
 
-            while (d_col != move.getCell().getColumn() && d_row != move.getCell().getRow()) {
 
+                cells[d_row][d_col].setValue(colour);
+                if (cells[d_row][d_col].getValue() == colour) {
+                    System.out.println("test in the flipper");
+                    break;
+
+                }
                 d_row += dir[0];
                 d_col += dir[1];
             }

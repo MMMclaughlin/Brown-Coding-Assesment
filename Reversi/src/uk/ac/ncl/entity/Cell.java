@@ -112,7 +112,6 @@ public class Cell {
      * @return whether move is possible for the piece. If this is the case, then possible moves are stored in Piece.
      */
     public boolean isLegal(CellStatus colour, Cell[][] cells){
-        System.out.println("new cell ---------- "+this.getRow()+","+this.getRow());
         CellStatus opponent = colour == CellStatus.LIGHT ? CellStatus.DARK : CellStatus.LIGHT;
         boolean isLegal = false;
         int score = 0;
@@ -141,8 +140,6 @@ public class Cell {
                         }
                     }
                     else {
-                        System.out.println(this.getRow()+","+this.getColumn()+cells[this.getRow()][this.getColumn()].getValue());
-                        System.out.println(d_row+","+d_col+"-->"+cells[d_row][d_col].getValue());
                         break;
                     }
                 }
