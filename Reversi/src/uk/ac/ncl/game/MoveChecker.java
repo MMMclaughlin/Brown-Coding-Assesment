@@ -78,6 +78,7 @@ public class MoveChecker {
                 if (this.cells[i][j].getValue() == CellStatus.EMPTY){
                     if (this.cells[i][j].isLegal(colour, cells)){
 
+
                         potentialMoves.add(this.cells[i][j]);
                     }
                 }
