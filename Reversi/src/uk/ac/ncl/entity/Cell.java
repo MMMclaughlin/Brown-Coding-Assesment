@@ -89,7 +89,7 @@ public class Cell {
     }
 
     public int getRow() {
-        return column;
+        return row;
     }
 
     public int getColumn() {
@@ -112,6 +112,7 @@ public class Cell {
      * @return whether move is possible for the piece. If this is the case, then possible moves are stored in Piece.
      */
     public boolean isLegal(CellStatus colour, Cell[][] cells){
+        System.out.println("new cell ---------- "+this.getRow()+","+this.getRow());
         CellStatus opponent = colour == CellStatus.LIGHT ? CellStatus.DARK : CellStatus.LIGHT;
         boolean isLegal = false;
         int score = 0;
@@ -119,23 +120,23 @@ public class Cell {
         int[][] DIRS = {{-1,-1}, {-1,0}, {0,0}, {-1,1}, {0,1}, {0,-1}, {1,1}, {1,0}, {1,-1}};
 
         for (int[] dir : DIRS){
+
             int temp_score = 0;
             int d_row = this.getRow() + dir[0];
             int d_col = this.getColumn() + dir[1];
             if (0 <= d_col &&  d_col < BOARD_SIZE && 0 <=  d_row && d_row < BOARD_SIZE
                     && cells[d_row][d_col].getValue() != CellStatus.EMPTY
                     && cells[d_row][d_col].getValue() == opponent) {
-                d_row = this.getRow() - dir[0];//this sets back to original values ready for loop
-                d_col = this.getColumn() - dir[1];
                 while (true){
                     d_row += dir[0];//moves through the next squares in the given direction
                     d_col += dir[1];
                     temp_score += 1;//increase score by amount of enemy squares taken
                     if (0 <= d_col &&  d_col < BOARD_SIZE && 0 <=  d_row && d_row < BOARD_SIZE
                             && cells[d_row][d_col].getValue() != CellStatus.EMPTY){
-                        System.out.println("in if statement");
+                        System.out.println("in the if statement");
                         if (cells[d_row][d_col].getValue() == colour) {
-                            System.out.println(d_row+","+d_col+"-->"+cells[d_row][d_col].getValue());
+                            System.out.println(this.getRow()+","+this.getColumn());
+
                             System.out.println("in second if");
                             isLegal = true;
                             score += temp_score;
@@ -144,6 +145,8 @@ public class Cell {
                         }
                     }
                     else {
+                        System.out.println(this.getRow()+","+this.getColumn()+cells[this.getRow()][this.getColumn()].getValue());
+                        System.out.println(d_row+","+d_col+"-->"+cells[d_row][d_col].getValue());
                         break;
                     }
                 }
