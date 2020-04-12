@@ -10,6 +10,7 @@ import uk.ac.ncl.entity.DirectedMove;
 import uk.ac.ncl.entity.Cell;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import static uk.ac.ncl.Constants.*;
 
@@ -36,13 +37,28 @@ public class MoveChecker {
         ArrayList<Cell> potentialMoves = findPotentialMoves(cellStatus);
         int max_score = 0;
         Cell opponentsMove = null;
-        for (int i = 0; i < potentialMoves.size(); i++){
-            if (potentialMoves.get(i).getMove().getScore() > max_score){
-                opponentsMove = potentialMoves.get(i);
+        if (potentialMoves.size() > 0) {
+            for (int i = 0; i < potentialMoves.size(); i++) {
+                if (potentialMoves.get(i).getMove().getScore() > max_score) {
+                    opponentsMove = potentialMoves.get(i);
+                }
             }
         }
+        else {
+                CellStatus player = cellStatus == CellStatus.LIGHT ? CellStatus.DARK : CellStatus.LIGHT;
+                ArrayList<Cell> moves = findPotentialMoves(player);
+                if (moves.size() > 0) {
+                    colourPieces(moves, CellStatus.GRAY);
+                }
+                else{
+                    getFinalScore();
+                }
+            return null;
+
+        }
         return opponentsMove;
-    }
+        }
+
 
     /**
      * Flips pieces between selected piece in directions of valid moves.
@@ -61,11 +77,9 @@ public class MoveChecker {
             d_col += dir[1];
             while (d_col != move.getCell().getColumn() || d_row != move.getCell().getRow()) {
                 cells[d_row][d_col].setValue(colour);
-                System.out.println(d_row+","+d_col);
                 d_row += dir[0];
                 d_col += dir[1];
                 if (cells[d_row][d_col].getValue() == colour) {
-                    System.out.println("test in the flipper");
                     break;
                 }
             }
@@ -89,7 +103,6 @@ public class MoveChecker {
                 }
             }
         }
-        System.out.println("length of potential moves--->"+potentialMoves.size());
         return potentialMoves;
     }
 
