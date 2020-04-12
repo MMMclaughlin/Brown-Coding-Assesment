@@ -33,7 +33,7 @@ public class MoveChecker {
      * @return a piece to make a move
      */
     public Cell generateOpponent(CellStatus cellStatus) {
-        ArrayList<Cell> potentialMoves = findPotentialMoves(CellStatus.DARK);
+        ArrayList<Cell> potentialMoves = findPotentialMoves(cellStatus);
         int max_score = 0;
         Cell opponentsMove = null;
         for (int i = 0; i < potentialMoves.size(); i++){
@@ -59,14 +59,12 @@ public class MoveChecker {
             d_row += dir[0];
             d_col += dir[1];
             while (d_col != move.getCell().getColumn() || d_row != move.getCell().getRow()) {
-
-
-                cells[d_row][d_col].setValue(colour);
+                System.out.println("flip");
                 if (cells[d_row][d_col].getValue() == colour) {
                     System.out.println("test in the flipper");
                     break;
-
                 }
+                cells[d_row][d_col].setValue(colour);
                 d_row += dir[0];
                 d_col += dir[1];
             }
@@ -85,8 +83,6 @@ public class MoveChecker {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 if (this.cells[i][j].getValue() == CellStatus.EMPTY){
                     if (this.cells[i][j].isLegal(colour, cells)){
-
-
                         potentialMoves.add(this.cells[i][j]);
                     }
                 }
