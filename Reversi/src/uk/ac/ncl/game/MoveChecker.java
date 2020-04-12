@@ -59,7 +59,6 @@ public class MoveChecker {
             cells[d_row][d_col].setValue(colour);
             d_row += dir[0];
             d_col += dir[1];
-
             while (d_col != move.getCell().getColumn() || d_row != move.getCell().getRow()) {
                 cells[d_row][d_col].setValue(colour);
                 System.out.println(d_row+","+d_col);
