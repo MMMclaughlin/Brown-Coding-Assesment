@@ -56,17 +56,19 @@ public class MoveChecker {
             int[] dir = move.getDirection();
             int d_row = cell.getRow();
             int d_col = cell.getColumn();
+            cells[d_row][d_col].setValue(colour);
             d_row += dir[0];
             d_col += dir[1];
+
             while (d_col != move.getCell().getColumn() || d_row != move.getCell().getRow()) {
-                System.out.println("flip");
+                cells[d_row][d_col].setValue(colour);
+                System.out.println(d_row+","+d_col);
+                d_row += dir[0];
+                d_col += dir[1];
                 if (cells[d_row][d_col].getValue() == colour) {
                     System.out.println("test in the flipper");
                     break;
                 }
-                cells[d_row][d_col].setValue(colour);
-                d_row += dir[0];
-                d_col += dir[1];
             }
         }
     }
@@ -88,6 +90,7 @@ public class MoveChecker {
                 }
             }
         }
+        System.out.println("length of potential moves--->"+potentialMoves.size());
         return potentialMoves;
     }
 
