@@ -109,7 +109,7 @@ public class MainPanel extends JFrame {
         moveChecker.removeMoves(grayCells);
         grayCells = moveChecker.findPotentialMoves(PLAYERS_CELL_STATUS);
         if (grayCells.size() == 0)
-            missedMoves += moveChecker.findPotentialMoves(OPPONENTS_CELL_STATUS).size() > 0 ? 1 : 2;
+            missedMoves += moveChecker.findPotentialMoves(OPPONENTS_CELL_STATUS).size() > 0 ? 1 : 0;
         CheckNextMove(moveChecker);
     }
 

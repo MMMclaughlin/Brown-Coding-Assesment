@@ -10,7 +10,8 @@ import java.util.ArrayList;
 /**
  * Stores potential moves of the piece.
  */
-public class Move {
+public class
+Move {
 
     /**
      *  Specifies valid moves.
