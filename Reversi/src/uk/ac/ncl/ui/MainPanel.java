@@ -104,12 +104,22 @@ public class MainPanel extends JFrame {
      * @param opponent
      */
     private void MoveOpponent(Cell opponent){
+
         moveChecker.flipPieces(opponent, OPPONENTS_CELL_STATUS);
         missedMoves += 1;
+
         moveChecker.removeMoves(grayCells);
         grayCells = moveChecker.findPotentialMoves(PLAYERS_CELL_STATUS);
-        if (grayCells.size() == 0)
-            missedMoves += moveChecker.findPotentialMoves(OPPONENTS_CELL_STATUS).size() > 0 ? 1 : 0;
+        if (grayCells.size() == 0){
+            System.out.println("player has no moves");
+            missedMoves += moveChecker.findPotentialMoves(OPPONENTS_CELL_STATUS).size() > 0 ? 1 : 2;
+            if (missedMoves <= 2) {
+                Cell newOpponent = moveChecker.generateOpponent(OPPONENTS_CELL_STATUS);
+                missedMoves = 0;
+                MoveOpponent(newOpponent);
+            }
+        }
+        System.out.println(missedMoves);
         CheckNextMove(moveChecker);
     }
 
@@ -130,6 +140,8 @@ public class MainPanel extends JFrame {
             }
         }
         else{
+            System.out.println("else reached");
+            missedMoves = 2;
             CheckNextMove(moveChecker);
         }
     }
