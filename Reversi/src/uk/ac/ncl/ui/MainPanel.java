@@ -106,9 +106,8 @@ public class MainPanel extends JFrame {
     private void MoveOpponent(Cell opponent){
 
         moveChecker.flipPieces(opponent, OPPONENTS_CELL_STATUS);
-        missedMoves += 1;
-
         moveChecker.removeMoves(grayCells);
+        missedMoves += 1;
         grayCells = moveChecker.findPotentialMoves(PLAYERS_CELL_STATUS);
         if (grayCells.size() == 0){
             System.out.println("player has no moves");
@@ -119,7 +118,6 @@ public class MainPanel extends JFrame {
                 MoveOpponent(newOpponent);
             }
         }
-        System.out.println(missedMoves);
         CheckNextMove(moveChecker);
     }
 
@@ -138,13 +136,16 @@ public class MainPanel extends JFrame {
                 ActionListener taskPerformer = ae -> MoveOpponent(opponent);
                 setUpTimer(taskPerformer);
             }
+            else{
+                missedMoves = missedMoves +1;
+                grayCells = moveChecker.findPotentialMoves(PLAYERS_CELL_STATUS);
+                if (grayCells.size() == 0){
+                    missedMoves = missedMoves +1;
+                }
+                CheckNextMove(moveChecker);
+            }
         }
-        else{
-            System.out.println("else reached");
-            missedMoves = 2;
-            CheckNextMove(moveChecker);
         }
-    }
 
     /**
      *
